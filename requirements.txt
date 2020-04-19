@@ -1,0 +1,18 @@
+# web
+uvicorn==0.11.3
+fastapi==0.54.0
+python-multipart==0.0.5
+
+# database
+asyncpg==0.20.1
+psycopg2-binary==2.8.5
+gino==0.8.6
+
+# jwt
+passlib==1.7.2
+PyJWT==1.7.1
+bcrypt==3.1.7
+
+# tests
+pytest-asyncio==0.10.0
+aiohttp==3.6.2

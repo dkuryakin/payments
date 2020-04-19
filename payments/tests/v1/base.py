@@ -1,0 +1,1 @@
+api_url = 'http://payments/v1'

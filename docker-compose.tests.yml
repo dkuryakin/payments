@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  payments:
+    build: .
+    depends_on:
+      - postgres
+      - redis
+    environment: &env
+      PAYMENTS_TITLE: Payments
+      PAYMENTS_VERSION: 0.1.0
+      PAYMENTS_LOGLEVEL: DEBUG
+      PAYMENTS_DECIMAL_PRECISION: 6
+      PAYMENTS_DEFAULT_TRANSFER_FEE: 0.02
+      PAYMENTS_POSTGRES_DSN: postgresql://payments:vzMd06JLXQWUyPuBSnHP@postgres/payments
+      PAYMENTS_REDIS_DSN: redis://redis
+      # openssl rand -hex 32
+      PAYMENTS_JWT_SECRET_KEY: e659fe09bc5f9b4e80ce683a5ea8db2533c3541d46222dc438e72157af54b896
+      PAYMENTS_JWT_ALGORITHM: HS256
+      PAYMENTS_JWT_LIFETIME_SECONDS: 1800
+      PAYMENTS_TOKEN_URL: /v1/token
+      # It's not secure for production, but OK for dev
+      PAYMENTS_ORIGINS: "*"
+
+  redis:
+    image: redis:5.0.8-alpine3.11
+
+  postgres:
+    image: postgres:11.6-alpine
+    environment:
+      POSTGRES_DB: payments
+      POSTGRES_USER: payments
+      POSTGRES_PASSWORD: vzMd06JLXQWUyPuBSnHP
+
+  tests:
+    build: .
+    entrypoint: pytest
+    depends_on:
+      - payments
+    environment: *env
