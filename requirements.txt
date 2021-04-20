@@ -4,7 +4,7 @@ fastapi==0.54.0
 python-multipart==0.0.5
 
 # database
-asyncpg==0.20.1
+asyncpg==0.21.0
 psycopg2-binary==2.8.5
 gino==0.8.6
 
